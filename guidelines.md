@@ -2,34 +2,35 @@
 
 This is a collection of guidelines and background information for this project.
 
-## Aliases
-This project relies on aliases heavily.
+## Directory structure
 
-  * the maximum length for aliases is 31 characters
+  * the `bootstrap.cfg` in the root directory should be the only file meeded to be executed in order to load the framework
 
-  ```
-  ] alias abcdefghijklmnopqwstuvwxyz12345 "test"
-  ] alias abcdefghijklmnopqwstuvwxyz123456 "test
-  Alias name is too long
-  ```
+  * there should be no additional configuration files in the main directory if possible; create subdirectories for each new component
 
-  * to avoid name collisions, the prefix `cfgo` should be used
+  * you may create more levels of subdirectories if it's sensible
 
-  * aliases should have a clear structure, you should be able to recognize which submodule they are part of
+  * the first level of an subdirectory located in the root directory should contain a file named `main.cfg`
 
-  ```
-  // bad
-  cfgo_hl
-  cfgo_hl_b
-  cfgo_load
+    * This file can either contain code, more includes or both
 
-  // better
-  cfgo_out_hl
-  cfgo_out_hl_b
-  cfgo_cfg_load
-  ```
+    * the `main.cfg` should be the only file needed to be executed in order to load the component
 
-  * because of the length restriction and for readability, you should still use simple variable, short aliases
+      * Same goes for submodules if existing, but that does not mean that each subdirectory requires an `main.cfg`
+
+      example:
+      ```
+      CFGO
+      ├── bootstrap.cfg
+      └── module
+          ├── main.cfg
+          ├── submodule0
+          │   ├── includes
+          │   │   └── incl0.cfg
+          │   └── main.cfg
+          └── submodule1
+              └── main.cfg
+      ```
 
 ## Documentation
 
@@ -105,3 +106,32 @@ The programming/scripting possibilities are very restricted, which sometimes req
   // ... internal code
   <snip>
   ```
+
+## Aliases
+This project relies on aliases heavily.
+
+  * the maximum length for aliases is 31 characters
+
+  ```
+  ] alias abcdefghijklmnopqwstuvwxyz12345 "test"
+  ] alias abcdefghijklmnopqwstuvwxyz123456 "test
+  Alias name is too long
+  ```
+
+  * to avoid name collisions, the prefix `cfgo` should be used
+
+  * aliases should have a clear structure, you should be able to recognize which submodule they are part of
+
+  ```
+  // bad
+  cfgo_hl
+  cfgo_hl_b
+  cfgo_load
+
+  // better
+  cfgo_out_hl
+  cfgo_out_hl_b
+  cfgo_cfg_load
+  ```
+
+  * because of the length restriction and for readability, you should still use simple variable, short aliases
